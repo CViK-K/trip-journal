@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>熊本・福岡 旅行手帳</title>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Yomogi&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light;
+--paper:#fbf7ec;--line:#cfdbe3;--ink:#2b3a55;--soft:#6c7a90;--red:#c8432f;--green:#6f9a6a;--edge:#e6dcc3;--surf:#fffdf6;
+--c1:#fdf1b8;--c2:#fbd9d6;--c3:#d8ead2;--c4:#d6e5f2;--shadow:rgba(60,50,30,.18)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#1f2430;--line:#2c3446;--ink:#e8e2d0;--soft:#9aa4b8;--red:#ee7a66;--green:#8fbf88;--edge:#3a3f4d;--surf:#2a3040;--c1:#4a4526;--c2:#4d3433;--c3:#2f4230;--c4:#2b3d50;--shadow:rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#1f2430;--line:#2c3446;--ink:#e8e2d0;--soft:#9aa4b8;--red:#ee7a66;--green:#8fbf88;--edge:#3a3f4d;--surf:#2a3040;--c1:#4a4526;--c2:#4d3433;--c3:#2f4230;--c4:#2b3d50;--shadow:rgba(0,0,0,.4)}
+*,*:before,*:after{box-sizing:inherit}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 'Klee One','Hiragino Maru Gothic ProN','Noto Sans TC',sans-serif;
+background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:24px 24px;min-height:100vh}
+.wrap{max-width:1040px;margin:0 auto;padding:18px 14px 60px 34px;position:relative}
+.wrap:before{content:"";position:absolute;left:8px;top:0;bottom:0;width:10px;background:radial-gradient(circle,var(--edge) 4px,transparent 5px) 0 6px/10px 36px repeat-y}
+h1{font:400 clamp(26px,5vw,38px)/1.2 'Yomogi','Klee One',cursive;margin:6px 0 2px;letter-spacing:.06em}
+h1 small{font-size:.5em;color:var(--red);margin-left:8px;border:2px solid var(--red);border-radius:6px;padding:0 8px;display:inline-block;transform:rotate(-4deg)}
+.sub{color:var(--soft);font-size:14px;margin:0 0 12px}
+.mode{display:inline-block;background:var(--c3);border-radius:99px;padding:1px 12px;font-size:13px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 16px}
+.tab{font:inherit;font-family:'Yomogi','Klee One',cursive;font-size:17px;background:var(--surf);color:var(--ink);border:2px solid var(--ink);border-bottom-width:4px;border-radius:12px 12px 4px 4px;padding:4px 16px;cursor:pointer}
+.tab.on{background:var(--ink);color:var(--paper)}
+input,select,textarea,button{font:inherit;color:var(--ink)}
+input,select,textarea{background:var(--surf);border:1.5px solid var(--ink);border-radius:8px;padding:4px 8px;min-width:0}
+textarea{width:100%;min-height:76px;resize:vertical}
+.add{display:flex;gap:8px;flex-wrap:wrap;background:var(--surf);border:2px dashed var(--ink);border-radius:12px;padding:10px;margin-bottom:12px}
+.add input[name=n]{flex:2 1 160px}.add input[name=t]{flex:3 1 200px}.add input[type=number]{width:72px}
+.btn{background:var(--red);color:#fff;border:0;border-radius:8px;padding:4px 14px;cursor:pointer;font-family:'Yomogi','Klee One',cursive}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.chip{border:1.5px solid var(--ink);background:transparent;border-radius:99px;padding:0 12px;cursor:pointer;font-size:14px}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:22px 16px;margin-top:14px}
+.note{position:relative;padding:20px 14px 12px;box-shadow:2px 4px 8px var(--shadow);border-radius:2px;transition:transform .15s}
+.note:nth-child(3n){transform:rotate(1.2deg)}.note:nth-child(3n+1){transform:rotate(-1deg)}.note:hover{transform:rotate(0) translateY(-2px)}
+.t-景點{background:var(--c1)}.t-美食{background:var(--c2)}.t-溫泉{background:var(--c3)}.t-購物{background:var(--c4)}
+.tape{position:absolute;top:-9px;left:50%;width:70px;height:18px;margin-left:-35px;background:rgba(200,160,120,.45);transform:rotate(-3deg)}
+.ttl{font:400 20px/1.3 'Yomogi','Klee One',cursive}
+.meta{font-size:13px;color:var(--soft)}
+.note p{margin:6px 0;font-size:14px}
+.votes{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.vb{border:1.5px solid var(--ink);background:transparent;border-radius:6px;padding:0 8px;font-size:13px;cursor:pointer}
+.vb.on{background:var(--ink);color:var(--paper)}
+.vb.l3.on{background:var(--red);border-color:var(--red);color:#fff}
+.stamp{position:absolute;right:8px;top:10px;color:var(--red);border:3px double var(--red);border-radius:6px;padding:0 8px;font:400 17px 'Yomogi',cursive;transform:rotate(10deg);opacity:.85;pointer-events:none}
+.x{position:absolute;right:4px;bottom:2px;background:none;border:0;cursor:pointer;color:var(--soft);font-size:15px}
+.placed{font-size:12px;color:var(--green);font-weight:600}
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:18px}
+.day{background:var(--surf);border:2px solid var(--ink);border-radius:4px 14px 4px 14px;padding:10px;box-shadow:3px 4px 0 var(--shadow)}
+.dh{display:flex;gap:6px;align-items:center}
+.dh b{font:400 20px 'Yomogi',cursive;color:var(--red);white-space:nowrap}
+.dh input{flex:1;border:0;border-bottom:1.5px dashed var(--ink);border-radius:0;background:transparent}
+.hrs{font-size:12px;margin:2px 0 6px;color:var(--soft)}.hrs.hard{color:var(--red);font-weight:600}
+.slot{min-height:56px;border:1.5px dashed var(--soft);border-radius:8px;margin:6px 0;padding:4px 6px}
+.slot.over{background:var(--c3)}
+.slot small{color:var(--soft);display:block}
+.tag{display:flex;justify-content:space-between;gap:6px;margin:3px 0;padding:1px 8px;border-radius:4px;font-size:14px;box-shadow:1px 2px 3px var(--shadow)}
+.tag button{background:none;border:0;cursor:pointer}
+.pool{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pc{padding:4px 8px;border-radius:4px;font-size:14px;box-shadow:1px 2px 4px var(--shadow);cursor:grab;display:flex;gap:6px;align-items:center}
+.pc select{font-size:12px;padding:0;width:84px}
+.add input[name=m]{flex:3 1 220px}.pin{font-size:12px;color:var(--red);text-decoration:none;white-space:nowrap}a.ticket{color:var(--ink);text-decoration:none}.pc,.tag{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}.tag{align-items:center}.pc:before,.tag:before{content:"";width:12px;height:18px;flex:none;background:radial-gradient(circle,var(--soft) 1.4px,transparent 1.8px) 0 0/6px 6px}.dg{position:fixed;pointer-events:none;z-index:20;opacity:.9;transform:rotate(-2deg)}.pool.over{outline:2px dashed var(--green);outline-offset:4px}.mv{border-left:5px solid var(--m,#888);background:color-mix(in srgb,var(--m,#888) 22%,var(--surf));border-radius:4px;padding:0 8px;margin:3px 0;font-size:13px;cursor:pointer}.mvi{border-bottom:3px solid var(--m,#888);padding:0 4px;margin:0 2px;font-size:13px}.mvadd{background:none;border:0;color:var(--soft);font-size:12px;cursor:pointer;padding:0}.mvedit{display:flex;gap:4px;flex-wrap:wrap;margin:3px 0}.mvedit .btn{padding:0 10px;font-size:13px}.as{font-size:12px;padding:0;border-width:1px}.t-住宿{background:color-mix(in srgb,#9b86c4 35%,var(--surf))}.q{width:100%;max-width:420px;margin:4px 0}.ed{position:absolute;top:2px;right:34px;background:none;border:0;cursor:pointer;color:var(--soft);font-size:13px;padding:2px 6px;z-index:3}.er{display:grid;grid-template-columns:78px 1fr;gap:6px;align-items:center;margin:4px 0;font-size:13px}.er input,.er select,.er textarea{width:100%;min-height:0}.er textarea{min-height:56px}.note.eon{transform:none!important}.note.done{opacity:.6}.stamp.g{color:var(--green);border-color:var(--green)}.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:8px 0}.sum div{background:var(--surf);border:2px solid var(--ink);border-radius:4px 12px 4px 12px;padding:8px 12px}.sum b{display:block;font:400 20px 'Yomogi',cursive;color:var(--red)}.bar{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-size:14px;margin:4px 0}.bar i{display:block;height:12px;background:var(--green);border-radius:6px;min-width:2px}.ex{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--surf);border-left:6px solid var(--green);padding:6px 10px;border-radius:4px 10px 10px 4px;margin:6px 0}.ex.paid{opacity:.7}.ex small{color:var(--soft);flex:1 1 100%}.tg{background:var(--c4);border-radius:99px;padding:0 10px;font-size:12px}.ck{display:flex;align-items:center;gap:4px;font-size:14px}.add input[name=s]{flex:2 1 140px;min-width:110px}.add input[name=p],.add input[name=q]{flex:none}.stamp{top:30px;right:8px}.add{align-items:center}.add select{flex:none}.add input[type=number]{flex:none}.add .btn{flex:none;white-space:nowrap}.add input[name=n]{flex:2 1 150px;min-width:120px}.add input[name=t],.add input[name=m]{flex:3 1 200px;min-width:160px}.x{top:2px;bottom:auto;right:4px;padding:2px 8px;z-index:3;font-size:13px}.stamp{right:40px}.tag span{flex:1}.tag button{padding:0 4px}.mvedit{display:grid;grid-template-columns:1fr 84px;gap:6px;margin:4px 0;position:relative;z-index:2}.mvedit input,.mvedit select{width:100%}.mvedit .full{grid-column:1/-1}.mvbtns{grid-column:1/-1;display:flex;gap:6px}.mvbtns .btn{flex:1;padding:2px 8px;font-size:14px}.route{display:grid;gap:10px;margin-bottom:18px}
+.rd{background:var(--surf);border-left:6px solid var(--green);padding:8px 12px;border-radius:4px 10px 10px 4px}
+.rd b{font-family:'Yomogi',cursive;font-size:18px}
+.arrow{color:var(--red)}
+.ticket{display:inline-block;border:1.5px dashed var(--ink);border-radius:6px;padding:0 8px;margin:2px 0;background:var(--c4);font-size:14px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.empty{color:var(--soft);padding:20px;text-align:center}
+.foot{margin-top:28px}#mode.link{cursor:pointer;text-decoration:underline dotted}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:6px 16px;border-radius:99px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
+#toast.s{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>熊本・福岡 旅行手帳 <small>2027 · 5月</small></h1>
+  <p class="sub">六天行程・景點排序・一起投票　<span class="mode" id="mode">載入中…</span></p>
+  <div class="tabs" id="tabs"></div>
+  <div id="view"></div>
+  <p class="foot" id="foot"></p>
+</div>
+<div id="toast"></div>
+<script src="config.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const h=(t,a,...c)=>{const e=document.createElement(t);for(const k in a||{}){const v=a[k];if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else if(v!==false&&v!=null)e.setAttribute(k,v===true?'':v)}for(const x of c.flat(Infinity))if(x!=null&&x!==false)e.append(x.nodeType?x:document.createTextNode(x));return e};
+const AREAS=['福岡市','太宰府','熊本市','阿蘇','黑川溫泉','由布院','其他'],TYPES=['景點','美食','溫泉','購物','住宿'];
+const LV={3:'必去',2:'想去',1:'有空再說'},SL={a:'上午',p:'下午',e:'晚上'};
+const SAMPLE=[['福岡市','景點',2.5,'福岡城跡・大濠公園'],['福岡市','美食',2,'中洲屋台'],['福岡市','景點',1,'櫛田神社'],['福岡市','購物',2.5,'博多運河城・天神逛街'],['太宰府','景點',3,'太宰府天滿宮・參道小吃'],['熊本市','景點',3,'熊本城'],['熊本市','美食',1.5,'櫻之馬場城彩苑'],['熊本市','景點',1.5,'水前寺成趣園'],['熊本市','購物',2,'上通・下通商店街'],['阿蘇','景點',4,'阿蘇火山・草千里'],['黑川溫泉','溫泉',4,'黑川溫泉入湯手形巡禮'],['由布院','景點',3,'金鱗湖・湯之坪街道']];
+const S={spots:{},votes:{},snacks:{},exps:{},plan:{slots:{},titles:{},notes:{},moves:{}}};
+let db=null,uid='me',tab='wish',fA='',fT='',fQ='',pA='',pT='',pQ='',editSpot=null,editSnack=null,editExp=null,sA='',sS='',sQ='',names={},shared=false,built='';
+const KEY='kumafuku-v1';
+const toast=m=>{const t=$('#toast');t.textContent=m;t.className='s';clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',2600)};
+const persist=()=>{if(db)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const loadLocal=()=>{try{const d=JSON.parse(localStorage.getItem(KEY));if(d)Object.assign(S,d)}catch(e){}};
+const guard=p=>Promise.resolve(p).catch(()=>toast('儲存失敗，請檢查網路或 Firestore 規則'));
+const score=id=>Object.values(S.votes).reduce((n,v)=>n+(v[id]||0),0);
+const cnt=id=>{const c={1:0,2:0,3:0};Object.values(S.votes).forEach(v=>{if(v[id])c[v[id]]++});return c};
+const planOf=id=>S.plan.slots&&S.plan.slots[id];
+
+function saveSpot(id,d){S.spots[id]=d;persist();render(1);if(db)guard(db.collection('spots').doc(id).set(d))}
+function delSpot(id){delete S.spots[id];if(Object.keys(S.plan.slots||{}).some(k=>base(k)===id))planSet(p=>{for(const k in p.slots)if(base(k)===id){delete p.slots[k];delete p.moves[k]}});persist();render(1);if(db)guard(db.collection('spots').doc(id).delete())}
+function vote(id,l){const m=Object.assign({},S.votes[uid]);if(shared)m._name=myName;if(m[id]===l)delete m[id];else m[id]=l;S.votes[uid]=m;persist();render(1);if(db)guard(db.doc('votes/'+uid).set(m))}
+function planSet(fn){const p=JSON.parse(JSON.stringify(S.plan));p.slots=p.slots||{};p.titles=p.titles||{};p.notes=p.notes||{};p.moves=p.moves||{};fn(p);S.plan=p;persist();render(1);if(db)guard(db.doc('plan/main').set(p))}
+const place=(id,k)=>planSet(p=>{if(k){if(id.startsWith('new:'))id=id.slice(4)+'~'+Date.now().toString(36);p.slots[id]=k;p.ord=p.ord||{};p.ord[id]=Date.now()}else if(!id.startsWith('new:')){delete p.slots[id];if(id.includes('~'))delete p.moves[id];if(p.ord)delete p.ord[id]}});
+
+function editCard(id,s){const f={n:h('input',{value:s.name}),a:h('select',null,AREAS.map(x=>h('option',{selected:x===s.area},x))),t:h('select',null,TYPES.map(x=>h('option',{selected:x===s.type},x))),h:h('input',{type:'number',step:'.5',min:'0',value:s.hrs}),o:h('textarea',null,s.note||''),m:h('input',{placeholder:'Google 地圖連結（選填）',value:s.map||''})};
+const row=(l,e)=>h('label',{class:'er'},h('span',null,l),e);
+return h('div',{class:'note t-'+s.type+' eon'},h('i',{class:'tape'}),row('名稱',f.n),row('地區',f.a),row('類型',f.t),row('停留(小時)',f.h),row('備註',f.o),row('地圖連結',f.m),h('div',{class:'mvbtns'},h('button',{class:'btn',onclick:()=>{const nm=f.n.value.trim();if(!nm){toast('名稱不能空白');return}const mu=f.m.value.trim();editSpot=null;saveSpot(id,Object.assign({},s,{name:nm,area:f.a.value,type:f.t.value,hrs:parseFloat(f.h.value)||0,note:f.o.value.trim(),map:/^https?:/.test(mu)?mu:''}))}},'儲存'),h('button',{class:'btn ghost',onclick:()=>{editSpot=null;render(1)}},'取消')))}
+function card(id,s){if(editSpot===id)return editCard(id,s);
+  const c=cnt(id),voters=Object.keys(S.votes).length,mine=(S.votes[uid]||{})[id],pk=planOf(id);
+  const tip=l=>Object.keys(S.votes).filter(u=>S.votes[u][id]===l).map(u=>u===uid?'我':(names[u]||'旅伴')).join('、');
+  return h('div',{class:'note t-'+s.type},h('i',{class:'tape'}),h('button',{class:'ed',title:'編輯',onclick:()=>{editSpot=id;render(1)}},'編輯'),
+    c[3]>0&&c[3]>=voters/2&&h('span',{class:'stamp'},'必去'),
+    h('div',{class:'ttl'},s.name),h('div',{class:'meta'},h('select',{class:'as',onchange:e=>saveSpot(id,Object.assign({},s,{area:e.target.value}))},AREAS.map(a=>h('option',{selected:a===s.area},a))),'・'+s.type+(s.type==='住宿'?'':'・約 '+s.hrs+' 小時')+'　',pin(s)),
+    s.note&&h('p',null,s.note),
+    h('div',{class:'votes'},[3,2,1].map(l=>h('button',{class:'vb l'+l+(mine===l?' on':''),title:tip(l),onclick:()=>vote(id,l)},LV[l]+(c[l]?' '+c[l]:'')))),
+    placedTag(id),
+    h('button',{class:'x',title:'刪除',onclick:e=>{const b=e.currentTarget;if(b.dataset.c)return delSpot(id);b.dataset.c=1;b.textContent='再按一次刪除';b.style.color='var(--red)';setTimeout(()=>{b.dataset.c='';b.textContent='✕';b.style.color=''},3000)}},'✕'));
+}
+
+function wishView(v){
+  const sel=(n,arr,ph)=>h('select',{name:n},arr.map(a=>h('option',null,a)));
+  const f=h('form',{class:'add',onsubmit:e=>{e.preventDefault();const d=new FormData(f);let nm=(d.get('n')||'').trim(),lk=(d.get('m')||'').trim();if(/^https?:/.test(nm)){lk=lk||nm;nm=''}const pm=parseMaps(lk),n=nm||pm.name;if(!n){toast('請輸入名稱（短網址無法自動抓名稱）');return}
+    saveSpot('s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),{name:n,area:d.get('a'),type:d.get('ty'),hrs:parseFloat(d.get('h'))||2,note:(d.get('t')||'').trim(),map:/^https?:/.test(lk)?lk:''});f.reset()}},
+    h('input',{name:'n',placeholder:'想去的地方…'}),sel('a',AREAS),sel('ty',TYPES),
+    h('input',{name:'h',type:'number',step:'.5',min:'.5',value:'2',title:'停留小時'}),
+    h('input',{name:'t',placeholder:'備註：公休日、要預約、5 月天氣…'}),h('input',{name:'m',placeholder:'Google 地圖連結（選填，可自動抓名稱）'}),h('button',{class:'btn'},'貼上便利貼'),h('button',{type:'button',class:'btn ghost',onclick:csvDlg},'上傳 CSV 匯入'));
+  v.append(f,searchBox(q=>{fQ=q;fillWish()},fQ),h('div',{id:'fl'}),h('div',{id:'lst'}));
+}
+function fillWish(){
+  const fl=$('#fl'),l=$('#lst');if(!fl||!l)return;const ae=document.activeElement;if(editSpot&&ae&&l.contains(ae)&&/INPUT|TEXTAREA|SELECT/.test(ae.tagName))return;
+  const chip=(t,cur,set)=>h('button',{class:'chip'+(cur===t?' on':''),onclick:()=>{set(cur===t?'':t);fillWish()}},t);
+  fl.replaceChildren(h('div',{class:'chips'},AREAS.map(a=>chip(a,fA,x=>fA=x))),h('div',{class:'chips'},TYPES.map(a=>chip(a,fT,x=>fT=x))));
+  const ids=Object.keys(S.spots).filter(i=>matchF(S.spots[i],fA,fT,fQ)).sort((a,b)=>score(b)-score(a));
+  if(!Object.keys(S.spots).length){l.replaceChildren(h('div',{class:'empty'},'手帳還是空白的，先寫下想去的地方吧！',h('br'),h('button',{class:'btn ghost',onclick:()=>SAMPLE.forEach((r,i)=>saveSpot('x'+i,{area:r[0],type:r[1],hrs:r[2],name:r[3],note:''}))},'✦ 放入熊本・福岡推薦景點當起點')));return}
+  l.replaceChildren(h('div',{class:'grid'},ids.map(i=>card(i,S.spots[i]))),ids.length?null:h('div',{class:'empty'},'這個篩選下沒有景點'));
+}
+
+function dragProps(id){return{onpointerdown:e=>startDrag(e,id)}}
+function matchF(s,a,t,q){return(!a||s.area===a)&&(!t||s.type===t)&&(!q||(s.name+' '+s.area+' '+s.type+' '+(s.note||'')).toLowerCase().includes(q.trim().toLowerCase()))}
+function searchBox(cb,val){return h('input',{type:'search',class:'q',placeholder:'🔍 關鍵字搜尋（名稱、備註、地區）',value:val,oninput:e=>cb(e.target.value)})}
+function filterBar(fill){const box=h('div'),chips=h('div');const draw=()=>{const c=(t,cur,set)=>h('button',{class:'chip'+(cur===t?' on':''),onclick:()=>{set(cur===t?'':t);draw();fill()}},t);chips.replaceChildren(h('div',{class:'chips'},AREAS.map(a=>c(a,pA,x=>{pA=x}))),h('div',{class:'chips'},TYPES.map(a=>c(a,pT,x=>{pT=x}))))};draw();box.append(searchBox(q=>{pQ=q;fill()},pQ),chips);return box}
+function base(p){return p.split('~')[0]}
+function placedTag(id){const ks=Object.keys(S.plan.slots||{}).filter(p=>base(p)===id).map(p=>S.plan.slots[p]);if(!ks.length)return null;const ds=[...new Set(ks.map(k=>k[0]))].sort().join('、');return h('div',{class:'placed'},'✓ 已排 Day '+ds+(ks.length===1?' '+SL[ks[0][2]]:''))}
+function parseCsv(t){const NL=String.fromCharCode(10),CR=String.fromCharCode(13),QT=String.fromCharCode(34),rows=[];let r=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch===QT){if(t[i+1]===QT){c+=QT;i++}else q=false}else c+=ch}else if(ch===QT)q=true;else if(ch===','){r.push(c);c=''}else if(ch===NL||ch===CR){if(ch===CR&&t[i+1]===NL)i++;r.push(c);c='';if(r.some(x=>x.trim()))rows.push(r);r=[]}else c+=ch}r.push(c);if(r.some(x=>x.trim()))rows.push(r);return rows}
+function importCsv(text){const rows=parseCsv(text);if(!rows.length){toast('檔案是空的');return}
+const hd=rows[0].map(x=>x.trim().toLowerCase()),fi=(...ks)=>hd.findIndex(x=>ks.includes(x)),ti=fi('title','name','名稱','標題','景點','地點'),ui=fi('url','網址','連結','link'),ni=fi('note','notes','備註','註解','comment');
+const body=(ti>=0||ui>=0)?rows.slice(1):rows,AK=[['dazaifu','太宰府'],['太宰府','太宰府'],['kumamoto','熊本市'],['熊本','熊本市'],['aso','阿蘇'],['阿蘇','阿蘇'],['kurokawa','黑川溫泉'],['黑川','黑川溫泉'],['yufu','由布院'],['由布','由布院'],['fukuoka','福岡市'],['hakata','福岡市'],['tenjin','福岡市'],['福岡','福岡市'],['博多','福岡市'],['天神','福岡市'],['中洲','福岡市']];
+let n=0,skip=0,dup=0;body.forEach(r=>{let u=(ui>=0?(r[ui]||''):(r.find(x=>x.trim().startsWith('http'))||'')).trim();if(!u.startsWith('http'))u='';let nm=(ti>=0?(r[ti]||''):(r.find(x=>x.trim()&&!x.trim().startsWith('http'))||'')).trim();nm=nm||parseMaps(u).name||'';if(!nm){skip++;return}if(Object.values(S.spots).some(s=>s.name===nm)){dup++;return}
+const ln=nm.toLowerCase(),a=(AK.find(k=>ln.includes(k[0]))||[0,'其他'])[1],ty=/飯店|旅館|酒店|ホテル|民宿|旅店|旅宿|旅社|hotel/i.test(nm)?'住宿':/溫泉|温泉|湯|onsen/i.test(nm)?'溫泉':/拉麵|ラーメン|食堂|カフェ|屋台|餐|咖啡|ramen|cafe/i.test(nm)?'美食':/商店|モール|百貨|通|mall/i.test(nm)?'購物':'景點';
+saveSpot('i'+Date.now().toString(36)+(n++)+Math.random().toString(36).slice(2,4),{name:nm,area:a,type:ty,hrs:2,note:ni>=0?(r[ni]||'').trim():'',map:u})});
+toast('已匯入 '+n+' 個景點'+(dup?'，'+dup+' 個名稱重複已略過':'')+(skip?'，'+skip+' 列缺少名稱已略過':''))}
+function csvDlg(){let txt='';const st=h('p',{class:'meta'},'尚未選擇檔案');
+const inp=h('input',{type:'file',accept:'.csv,.txt,text/csv,text/plain',onchange:async e=>{const f=e.target.files[0];if(!f)return;try{const b=await f.arrayBuffer();try{txt=new TextDecoder('utf-8',{fatal:true}).decode(b)}catch(x){txt=new TextDecoder('big5').decode(b)}st.textContent='已讀取「'+f.name+'」，共 '+parseCsv(txt).length+' 列'}catch(x){txt='';st.textContent='讀取失敗，請換一個檔案'}}});
+const dg=h('dialog',{style:'max-width:520px;width:92vw;background:var(--surf);color:var(--ink);border:2px solid var(--ink);border-radius:12px'},h('b',null,'上傳 CSV 匯入景點'),h('p',{class:'meta'},'支援 Google 地圖「已儲存清單」匯出的 CSV（Title、Note、URL 欄），或自己做的 CSV：名稱一欄、連結一欄（選填）。名稱重複的會略過。'),inp,st,h('p',{class:'meta'},'地區與類型會依名稱猜測，匯入後可在便利貼上修改地區。'),h('button',{class:'btn',onclick:()=>{if(!txt){toast('請先選擇檔案');return}importCsv(txt);dg.close()}},'匯入'),' ',h('button',{class:'btn ghost',onclick:()=>dg.close()},'取消'));dg.onclose=()=>dg.remove();document.body.append(dg);dg.showModal()}
+const WHO=['自己','家人','朋友','同事','其他'],AC={福岡市:'景點',太宰府:'美食',熊本市:'溫泉',阿蘇:'購物',黑川溫泉:'住宿',由布院:'景點',其他:'購物'},ECATS=['機票','住宿','交通','餐飲','門票','購物','其他'],SV={3:'必買',2:'想買',1:'有空再說'},SNS=[['福岡市','明太子','博多車站・伴手禮店','冷藏／冷凍品，帶回台灣前請先查入境規定'],['福岡市','博多通りもん','博多車站・機場',''],['太宰府','梅ヶ枝餅','太宰府參道',''],['熊本市','いきなり団子','熊本市區',''],['熊本市','辛子蓮根','熊本市區','帶回台灣前請先查入境規定'],['熊本市','太平燕','熊本市區','']];
+const rate=()=>parseFloat((S.plan.notes||{}).rate)||0,rowL=(l,e)=>h('label',{class:'er'},h('span',null,l),e);
+function saveSnack(id,d){S.snacks[id]=d;persist();render(1);if(db)guard(db.collection('snacks').doc(id).set(d))}
+function delSnack(id){delete S.snacks[id];persist();render(1);if(db)guard(db.collection('snacks').doc(id).delete())}
+function saveExp(id,d){S.exps[id]=d;persist();render(1);if(db)guard(db.collection('expenses').doc(id).set(d))}
+function delExp(id){delete S.exps[id];persist();render(1);if(db)guard(db.collection('expenses').doc(id).delete())}
+function delBtn(fn,cls,txt){txt=txt||'刪除';return h('button',{class:cls||'chip',title:'刪除',onclick:ev=>{const b=ev.currentTarget;if(b.dataset.c)return fn();b.dataset.c=1;b.textContent='再按一次刪除';b.style.color='var(--red)';setTimeout(()=>{b.dataset.c='';b.textContent=txt;b.style.color=''},3000)}},txt)}
+function snackFields(s){s=s||{};return{n:h('input',{name:'n',placeholder:'想買／想吃的東西…',value:s.name||''}),a:h('select',{name:'a'},AREAS.map(x=>h('option',{selected:x===s.area},x))),s:h('input',{name:'s',placeholder:'哪裡買（店家／地點）',value:s.shop||''}),p:h('input',{name:'p',type:'number',min:'0',step:'1',placeholder:'單價 ¥',value:s.price||'',style:'width:96px'}),q:h('input',{name:'q',type:'number',min:'1',step:'1',value:s.qty||1,title:'數量'}),w:h('select',{name:'w'},WHO.map(x=>h('option',{selected:x===s.who},x))),t:h('input',{name:'t',placeholder:'備註：保存期限、能否帶回台灣…',value:s.note||''}),m:h('input',{name:'m',placeholder:'Google 地圖連結（選填）',value:s.map||''})}}
+function snackData(f,old){const mu=f.m.value.trim();return Object.assign({},old||{},{name:f.n.value.trim(),area:f.a.value,shop:f.s.value.trim(),price:parseFloat(f.p.value)||0,qty:parseInt(f.q.value)||1,who:f.w.value,note:f.t.value.trim(),map:/^https?:/.test(mu)?mu:'',bought:!!(old&&old.bought)})}
+function snackView(v){const f=snackFields();v.append(h('form',{class:'add',onsubmit:e=>{e.preventDefault();const d=snackData(f);if(!d.name){toast('請輸入名稱');return}saveSnack('n'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),d);f.n.value='';f.s.value='';f.p.value='';f.t.value='';f.m.value=''}},f.n,f.a,f.s,f.p,f.q,f.w,f.t,f.m,h('button',{class:'btn'},'貼上便利貼')),searchBox(q=>{sQ=q;fillSnack()},sQ),h('div',{id:'sf'}),h('div',{id:'sl'}))}
+function fillSnack(){const fl=$('#sf'),l=$('#sl');if(!fl||!l)return;const ae=document.activeElement;if(editSnack&&ae&&l.contains(ae)&&/INPUT|TEXTAREA|SELECT/.test(ae.tagName))return;
+const chip=(t,lb,cur,set)=>h('button',{class:'chip'+(cur===t?' on':''),onclick:()=>{set(cur===t?'':t);fillSnack()}},lb);
+fl.replaceChildren(h('div',{class:'chips'},AREAS.map(a=>chip(a,a,sA,x=>{sA=x}))),h('div',{class:'chips'},chip('todo','待買',sS,x=>{sS=x}),chip('done','已買',sS,x=>{sS=x})));
+if(!Object.keys(S.snacks).length){l.replaceChildren(h('div',{class:'empty'},'還沒有必買／必吃的東西，先寫下來吧！',h('br'),h('button',{class:'btn ghost',onclick:()=>SNS.forEach((r,i)=>saveSnack('ns'+i,{name:r[1],area:r[0],shop:r[2],price:0,qty:1,who:'自己',note:r[3],map:'',bought:false}))},'放入熊本・福岡必買／必吃候選')));return}
+const ids=Object.keys(S.snacks).filter(i=>{const s=S.snacks[i];return(!sA||s.area===sA)&&(!sS||(sS==='done')===!!s.bought)&&(!sQ||(s.name+' '+(s.shop||'')+' '+s.area+' '+(s.note||'')+' '+(s.who||'')).toLowerCase().includes(sQ.trim().toLowerCase()))}).sort((a,b)=>(!!S.snacks[a].bought-!!S.snacks[b].bought)||score(b)-score(a));
+l.replaceChildren(h('div',{class:'grid'},ids.map(i=>snackCard(i,S.snacks[i]))),ids.length?null:h('div',{class:'empty'},'這個篩選下沒有項目'))}
+function snackCard(id,s){if(editSnack===id)return snackEdit(id,s);
+const c=cnt(id),voters=Object.keys(S.votes).length,mine=(S.votes[uid]||{})[id],tot=(s.price||0)*(s.qty||1),r=rate(),tip=l=>Object.keys(S.votes).filter(u=>S.votes[u][id]===l).map(u=>u===uid?'我':(names[u]||'旅伴')).join('、');
+return h('div',{class:'note t-'+(AC[s.area]||'購物')+(s.bought?' done':'')},h('i',{class:'tape'}),h('button',{class:'ed',onclick:()=>{editSnack=id;render(1)}},'編輯'),delBtn(()=>delSnack(id),'x','✕'),s.bought?h('span',{class:'stamp g'},'已買'):(c[3]>0&&c[3]>=voters/2&&h('span',{class:'stamp'},'必買')),h('div',{class:'ttl'},s.name),h('div',{class:'meta'},s.area+(s.who?'・買給'+s.who:'')),h('div',{class:'meta'},s.shop?s.shop+' ':'',pin({name:s.shop||s.name,area:s.area,map:s.map})),h('p',null,tot?'¥'+tot.toLocaleString('en-US')+(s.qty>1?'（¥'+s.price+' × '+s.qty+'）':'')+(r?' ≈ NT$'+Math.round(tot*r).toLocaleString('en-US'):''):'價格未填'),s.note&&h('p',null,s.note),h('div',{class:'votes'},[3,2,1].map(l=>h('button',{class:'vb l'+l+(mine===l?' on':''),title:tip(l),onclick:()=>vote(id,l)},SV[l]+(c[l]?' '+c[l]:'')))),h('button',{class:'btn ghost',style:'margin-top:6px',onclick:()=>saveSnack(id,Object.assign({},s,{bought:!s.bought}))},s.bought?'改回待買':'標為已買'))}
+function snackEdit(id,s){const f=snackFields(s);f.p.style.width='100%';return h('div',{class:'note t-'+(AC[s.area]||'購物')+' eon'},h('i',{class:'tape'}),rowL('名稱',f.n),rowL('地區',f.a),rowL('哪裡買',f.s),rowL('單價 ¥',f.p),rowL('數量',f.q),rowL('買給',f.w),rowL('備註',f.t),rowL('地圖連結',f.m),h('div',{class:'mvbtns'},h('button',{class:'btn',onclick:()=>{const d=snackData(f,s);if(!d.name){toast('名稱不能空白');return}editSnack=null;saveSnack(id,d)}},'儲存'),h('button',{class:'btn ghost',onclick:()=>{editSnack=null;render(1)}},'取消')))}
+function expFields(e){e=e||{};return{l:h('input',{name:'n',placeholder:'項目（例：來回機票、博多飯店 3 晚）',value:e.label||''}),c:h('select',{name:'c'},ECATS.map(x=>h('option',{selected:x===e.cat},x))),u:h('select',{name:'u'},[['JPY','¥ 日圓'],['TWD','NT$ 台幣']].map(x=>h('option',{value:x[0],selected:x[0]===(e.cur||'JPY')},x[1]))),a:h('input',{name:'p',type:'number',min:'0',placeholder:'金額',value:e.amount||'',style:'width:110px'}),k:h('input',{type:'checkbox',checked:!!e.paid}),t:h('input',{name:'t',placeholder:'備註（選填）',value:e.note||''})}}
+function expData(f){return{label:f.l.value.trim(),cat:f.c.value,cur:f.u.value,amount:parseFloat(f.a.value)||0,paid:f.k.checked,note:f.t.value.trim()}}
+function expEdit(e){const f=expFields(e);f.a.style.width='100%';f.k.style.width='auto';return h('div',{class:'ex'},h('div',{style:'flex:1 1 100%'},rowL('項目',f.l),rowL('分類',f.c),rowL('幣別',f.u),rowL('金額',f.a),rowL('已付',f.k),rowL('備註',f.t),h('div',{class:'mvbtns'},h('button',{class:'btn',onclick:()=>{const d=expData(f);if(!d.label){toast('項目不能空白');return}editExp=null;saveExp(e.id,d)}},'儲存'),h('button',{class:'btn ghost',onclick:()=>{editExp=null;render(1)}},'取消'))))}
+function budgetView(v){const r=rate(),fmt=n=>Math.round(n).toLocaleString('en-US');
+const exs=Object.keys(S.exps).map(i=>Object.assign({id:i},S.exps[i])).sort((a,b)=>ECATS.indexOf(a.cat)-ECATS.indexOf(b.cat));
+const E=exs.map(e=>({cat:e.cat,j:e.cur==='TWD'?0:(+e.amount||0),t:e.cur==='TWD'?(+e.amount||0):0,paid:!!e.paid})).concat(Object.values(S.snacks).map(s=>({cat:'伴手禮',j:(s.price||0)*(s.qty||1),t:0,paid:!!s.bought})));
+const sum=a=>a.reduce((o,x)=>({j:o.j+x.j,t:o.t+x.t}),{j:0,t:0}),money=o=>r>0?'NT$'+fmt(o.t+o.j*r)+(o.j?'（含 ¥'+fmt(o.j)+'）':''):((o.j||!o.t?'¥'+fmt(o.j):'')+(o.j&&o.t?' ＋ ':'')+(o.t?'NT$'+fmt(o.t):'')),val=o=>r>0?o.t+o.j*r:o.j+o.t,all=sum(E),pd=sum(E.filter(x=>x.paid)),left={j:all.j-pd.j,t:all.t-pd.t};
+const cats=[...ECATS,'伴手禮'].map(c=>[c,sum(E.filter(x=>x.cat===c))]).filter(x=>x[1].j||x[1].t),mx=Math.max(1,...cats.map(x=>val(x[1]))),mixed=r<=0&&all.j&&all.t;
+const who={};Object.values(S.snacks).forEach(s=>{const k=s.who||'未指定';who[k]=(who[k]||0)+(s.price||0)*(s.qty||1)});const wl=Object.entries(who).filter(x=>x[1]).map(x=>x[0]+' ¥'+fmt(x[1])).join('　');
+const f=expFields(),form=h('form',{class:'add',onsubmit:ev=>{ev.preventDefault();const d=expData(f);if(!d.label){toast('請輸入項目名稱');return}saveExp('e'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),d)}},f.l,f.c,f.u,f.a,h('label',{class:'ck'},f.k,'已付'),f.t,h('button',{class:'btn'},'新增花費'));
+const ri=h('input',{type:'number',step:'0.001',min:'0',value:r||'',placeholder:'例：0.21',style:'width:90px',onchange:ev=>planSet(p=>{p.notes.rate=parseFloat(ev.target.value)||0})});
+const row=e=>{if(editExp===e.id)return expEdit(e);const o=e.cur==='TWD'?{j:0,t:+e.amount||0}:{j:+e.amount||0,t:0},cl=Object.assign({},e);delete cl.id;return h('div',{class:'ex'+(e.paid?' paid':'')},h('b',null,e.label),h('span',{class:'tg'},e.cat),h('span',null,money(o)),e.note?h('small',null,e.note):null,h('button',{class:'chip'+(e.paid?' on':''),onclick:()=>saveExp(e.id,Object.assign(cl,{paid:!e.paid}))},e.paid?'已付':'未付'),h('button',{class:'chip',onclick:()=>{editExp=e.id;render(1)}},'編輯'),delBtn(()=>delExp(e.id)))};
+v.append(h('p',{class:'sub'},'整趟旅程的已知花費；伴手禮清單的價格會自動算進來（已買算已付）。'),h('div',{class:'add'},h('label',{class:'ck'},'匯率：1 日圓 ≈ NT$',ri),h('span',{class:'meta'},'自行輸入，用來換算台幣')),h('div',{class:'sum'},h('div',null,'已付／已買',h('b',null,money(pd))),h('div',null,'預估總額',h('b',null,money(all))),h('div',null,'還沒付',h('b',null,money(left)))),mixed&&h('p',{class:'meta'},'提示：同時有日圓與台幣項目，輸入匯率後才會合併計算。'),h('div',null,cats.map(x=>h('div',{class:'bar'},x[0],mixed?h('span'):h('i',{style:'width:'+Math.max(2,val(x[1])/mx*100)+'%'}),h('span',null,money(x[1]))))),wl&&h('p',{class:'meta'},'伴手禮分配：'+wl),form,h('div',null,exs.length?exs.map(row):h('div',{class:'empty'},'還沒有花費紀錄，先記下機票、住宿等已知費用吧！')))}
+function slotIds(key){return Object.keys(S.plan.slots||{}).filter(i=>S.plan.slots[i]===key&&S.spots[base(i)]).sort((a,b)=>((S.plan.ord||{})[a]||0)-((S.plan.ord||{})[b]||0))}
+function reorder(key,id,dir){const ids=slotIds(key),j=ids.indexOf(id),k=j+dir;if(j<0||k<0||k>=ids.length)return;[ids[j],ids[k]]=[ids[k],ids[j]];planSet(p=>{p.ord=p.ord||{};ids.forEach((x,n)=>{p.ord[x]=n+1})})}
+const MODES={walk:['🚶','步行','#6f9a6a'],train:['🚃','電車','#4f86b8'],shin:['🚄','新幹線','#c8432f'],bus:['🚌','巴士','#e09a3e'],car:['🚗','開車','#8a6bb0'],taxi:['🚕','計程車','#d8b92f']};
+let editId=null;
+function mapUrl(s){return s.map||'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.name+(s.area&&s.area!=='其他'?' '+s.area:''))}
+function pin(s){return h('a',{class:'pin',href:mapUrl(s),target:'_blank',rel:'noopener noreferrer',title:'在 Google 地圖開啟'},'📍地圖')}
+function parseMaps(u){try{const i=u.indexOf('/maps/place/');if(i>=0){const n=decodeURIComponent(u.slice(i+12).split(/[/@?]/)[0].replace(/[+]/g,' '));if(n)return{name:n}}}catch(e){}return{}}
+function importLines(t){let n=0,skip=0;const AK=[['太宰府','太宰府'],['熊本','熊本市'],['阿蘇','阿蘇'],['黑川','黑川溫泉'],['由布','由布院'],['福岡','福岡市'],['博多','福岡市'],['天神','福岡市'],['中洲','福岡市']];
+t.split(String.fromCharCode(10)).forEach(l=>{l=l.trim();if(!l||l.toLowerCase().startsWith('title,'))return;const u=l.split(/[ ,"]/).find(x=>x.startsWith('http'))||'',pm=parseMaps(u);const nm=l.replace(u,'').replace(/^[", ]+|[", ]+$/g,'').split(',')[0].replace(/"/g,'').trim()||pm.name;if(!nm){skip++;return}
+const a=(AK.find(k=>nm.includes(k[0]))||[0,'其他'])[1],ty=/飯店|旅館|酒店|ホテル|民宿|旅店|旅宿|旅社|hotel/i.test(nm)?'住宿':/溫泉|温泉|湯/.test(nm)?'溫泉':/拉麵|ラーメン|食堂|カフェ|屋台|餐|咖啡/.test(nm)?'美食':/商店|モール|百貨|通/.test(nm)?'購物':'景點';
+saveSpot('i'+Date.now().toString(36)+(n++)+Math.random().toString(36).slice(2,4),{name:nm,area:a,type:ty,hrs:2,note:'',map:u})});
+toast('已匯入 '+n+' 個景點'+(skip?'，'+skip+' 行缺少名稱已略過':''))}
+function bulk(){const ta=h('textarea',{placeholder:'每行一個：Google 地圖連結，或地點名稱（也可貼上 Google 匯出的 CSV）',style:'min-height:180px'});const dg=h('dialog',{style:'max-width:520px;width:92vw;background:var(--surf);color:var(--ink);border:2px solid var(--ink);border-radius:12px'},h('b',null,'批次匯入景點'),ta,h('p',{class:'meta'},'地區與類型會依名稱猜測，之後可在便利貼上修改地區。'),h('button',{class:'btn',onclick:()=>{importLines(ta.value);dg.close()}},'匯入'),' ',h('button',{class:'btn ghost',onclick:()=>dg.close()},'取消'));dg.onclose=()=>dg.remove();document.body.append(dg);dg.showModal()}
+function mvTag(m,fn){return h('div',{class:'mv',style:'--m:'+MODES[m.mode][2],onclick:fn},MODES[m.mode][0]+' '+MODES[m.mode][1]+(m.mins?' '+m.mins+' 分':'')+(m.note?'・'+m.note:''))}
+function mvInline(i){const m=(S.plan.moves||{})[i];return m?h('span',{class:'mvi',style:'--m:'+MODES[m.mode][2]},MODES[m.mode][0]+(m.mins?m.mins+'分':'')):h('span',{class:'arrow'},' → ')}
+function moveBox(id){const m=(S.plan.moves||{})[id];
+if(editId===id){const md=h('select',null,Object.keys(MODES).map(k=>h('option',{value:k,selected:!!m&&m.mode===k},MODES[k][0]+' '+MODES[k][1])));const mn=h('input',{type:'number',min:'0',step:'5',placeholder:'分鐘',value:m?m.mins:''});const nt=h('input',{placeholder:'路線／備註',value:m?m.note:'',class:'full'});
+return h('div',{class:'mvedit'},md,mn,nt,h('div',{class:'mvbtns'},h('button',{class:'btn',onclick:()=>{editId=null;planSet(p=>{p.moves[id]={mode:md.value,mins:parseInt(mn.value)||0,note:nt.value.trim()}})}},'好'),m&&h('button',{class:'btn ghost',onclick:()=>{editId=null;planSet(p=>{delete p.moves[id]})}},'清除'),h('button',{class:'btn ghost',onclick:()=>{editId=null;render(1)}},'取消')))}
+return m?mvTag(m,()=>{editId=id;render(1)}):h('button',{class:'mvadd',onclick:()=>{editId=id;render(1)}},'＋ 交通方式')}
+function startDrag(e,id){if(e.target.closest('select,button,a,input')||e.button>0)return;const el=e.currentTarget,sx=e.clientX,sy=e.clientY;let g=null,over=null;
+const mv=ev=>{if(!g){if(Math.hypot(ev.clientX-sx,ev.clientY-sy)<6)return;g=el.cloneNode(true);g.classList.add('dg');g.style.width=el.offsetWidth+'px';document.body.append(g);el.style.opacity=.3}
+g.style.left=ev.clientX-20+'px';g.style.top=ev.clientY-14+'px';const t=document.elementFromPoint(ev.clientX,ev.clientY),s=t&&t.closest('.slot,.pool');if(over&&over!==s)over.classList.remove('over');over=s;if(s)s.classList.add('over')};
+const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);if(g){g.remove();el.style.opacity='';if(over){over.classList.remove('over');place(id,over.dataset.k)}}};
+addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up);e.preventDefault()}
+function planView(v){
+  const poolIds=()=>Object.keys(S.spots).filter(i=>(!planOf(i)||S.spots[i].type==='住宿')&&matchF(S.spots[i],pA,pT,pQ)).sort((a,b)=>score(b)-score(a));
+  const opts=[h('option',{value:''},'排入…')];for(let d=1;d<=6;d++)for(const k in SL)opts.push(h('option',{value:d+'-'+k},'D'+d+' '+SL[k]));
+  const buildPool=()=>{const pool=poolIds();return(
+    h('div',{class:'pool','data-k':''},pool.length?pool.map(i=>{const s=S.spots[i],pid=s.type==='住宿'?'new:'+i:i;return h('div',Object.assign({class:'pc t-'+s.type},dragProps(pid)),s.name+(score(i)?' ★'+score(i):''),pin(s),h('select',{onchange:e=>e.target.value&&place(pid,e.target.value)},opts.map(o=>o.cloneNode(true))))}):h('span',{class:'empty'},Object.keys(S.spots).length?(pA||pT||pQ?'沒有符合的景點':'全部都排好囉 ✓'):'先到願望清單加景點')))};const poolHost=h('div'),fillPool=()=>poolHost.replaceChildren(buildPool());fillPool();v.append(h('p',{class:'sub'},'把便利貼拖進日記頁，或用下拉選單排入。可用標籤與關鍵字快速找景點。'),filterBar(fillPool),poolHost);
+  const days=h('div',{class:'days'});
+  for(let d=1;d<=6;d++){
+    const inDay=dayIds(d),tot=inDay.reduce((n,i)=>n+(S.spots[base(i)].type==='住宿'?0:(+S.spots[base(i)].hrs||0)),0),mv=inDay.reduce((n,i)=>n+(+((S.plan.moves||{})[i]||{}).mins||0),0);
+    const day=h('div',{class:'day'},h('div',{class:'dh'},h('b',null,'Day '+d),h('input',{placeholder:'今天的主題（例：福岡市區）',value:(S.plan.titles||{})[d]||'',onchange:e=>planSet(p=>{p.titles[d]=e.target.value})})),
+      h('div',{class:'hrs'+(tot>9?' hard':'')},'景點約 '+tot+' 小時'+(mv?'・移動約 '+mv+' 分':'')+(tot>9?'　這天有點硬 😵':'')));
+    for(const k in SL){
+      const key=d+'-'+k,slot=h('div',{class:'slot','data-k':key},h('small',null,SL[k]));
+      slotIds(key).forEach((i,j,arr)=>{const s=S.spots[base(i)];slot.append(moveBox(i),h('div',Object.assign({class:'tag t-'+s.type},dragProps(i)),h('span',null,s.name+(s.type==='住宿'?'':'・'+s.hrs+'h')),pin(s),j>0&&h('button',{title:'上移',onclick:()=>reorder(key,i,-1)},'↑'),j<arr.length-1&&h('button',{title:'下移',onclick:()=>reorder(key,i,1)},'↓'),h('button',{title:'移回清單',onclick:()=>place(i,'')},'移出')))});
+      day.append(slot);
+    }
+    days.append(day);
+  }
+  v.append(days);
+}
+
+function routeText(){
+  let t='熊本・福岡 六天行程\n';
+  for(let d=1;d<=6;d++){const ids=dayIds(d);t+='\nDay '+d+((S.plan.titles||{})[d]?'｜'+S.plan.titles[d]:'')+'\n'+(ids.length?ids.map((i,j)=>{const m=(S.plan.moves||{})[i];return (j?(m?' →（'+MODES[m.mode][1]+(m.mins?' '+m.mins+'分':'')+'）→ ':' → '):'')+S.spots[base(i)].name}).join(''):'（還沒排）')+'\n'}
+  const n=S.plan.notes||{};return t+'\n航班：'+(n.flight||'')+'\n住宿：'+(n.stay||'')+'\n備忘：'+(n.memo||'');
+}
+const dayIds=d=>Object.keys(S.plan.slots||{}).filter(i=>S.spots[base(i)]&&S.plan.slots[i][0]==d).sort((a,b)=>'ape'.indexOf(planOf(a)[2])-'ape'.indexOf(planOf(b)[2])||((S.plan.ord||{})[a]||0)-((S.plan.ord||{})[b]||0));
+function routeView(v){
+  const r=h('div',{class:'route'});
+  for(let d=1;d<=6;d++){const ids=dayIds(d),areas=[...new Set(ids.map(i=>S.spots[base(i)].area))];
+    r.append(h('div',{class:'rd'},h('b',null,'Day '+d),' ',(S.plan.titles||{})[d]||'',areas.length?h('span',{class:'meta'},'　'+areas.join('・')):null,h('br'),
+      ids.length?ids.map((i,j)=>[j?mvInline(i):null,h('a',{class:'ticket',href:mapUrl(S.spots[base(i)]),target:'_blank',rel:'noopener noreferrer'},S.spots[base(i)].name)]):h('span',{class:'meta'},'尚未安排')));}
+  const ta=(k,l,ph)=>h('div',null,h('b',null,l),h('textarea',{placeholder:ph,onchange:e=>planSet(p=>{p.notes[k]=e.target.value})},(S.plan.notes||{})[k]||''));
+  const out=h('textarea',{readonly:true,style:'display:none'});
+  v.append(h('p',{class:'sub'},'依「上午→下午→晚上」自動串起每天的動線。想想看：博多到熊本新幹線約半小時多，可以前後半段分區安排，或加一天阿蘇／由布院。'),r,
+    h('div',{class:'two'},ta('flight','✈ 航班','去程、回程時間'),ta('stay','🏨 住宿','每晚住哪、訂房資訊'),ta('memo','📝 備忘','預算、行李、伴手禮…')),
+    h('p',null,h('button',{class:'btn',onclick:()=>{out.value=routeText();out.style.display='block';out.select();try{navigator.clipboard.writeText(out.value).then(()=>toast('已複製行程文字'),()=>toast('請手動複製下方文字'))}catch(e){toast('請手動複製下方文字')}}},'複製成文字（貼到群組）')),out);
+}
+
+function render(force){
+  $('#tabs').replaceChildren(...[['wish','願望清單'],['plan','六天行程'],['route','整體動線'],['snack','伴手禮・美食'],['budget','預算']].map(([k,l])=>h('button',{class:'tab'+(tab===k?' on':''),onclick:()=>{tab=k;built='';render()}},l)));
+  const v=$('#view'),a=document.activeElement;
+  if(tab==='wish'&&built==='wish'){fillWish();return}if(tab==='snack'&&built==='snack'){fillSnack();return}
+  if(force&&a&&a.tagName==='SELECT')a.blur();if(!force&&built===tab&&a&&v.contains(a)&&/INPUT|TEXTAREA/.test(a.tagName))return;
+  v.replaceChildren();built=tab;
+  ({wish:wishView,plan:planView,route:routeView,snack:snackView,budget:budgetView})[tab](v);
+  if(tab==='wish')fillWish();if(tab==='snack')fillSnack();
+}
+
+let myName='';
+function connectFirebase(cfg){return(async()=>{const B='https://www.gstatic.com/firebasejs/10.12.2/';const [{initializeApp},fs]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-firestore.js')]);const fdb=fs.getFirestore(initializeApp(cfg.firebase)),root=['trips',cfg.roomId||'my-trip'];const mk=r=>({set:d=>fs.setDoc(r,d),delete:()=>fs.deleteDoc(r)});return{collection:n=>({onSnapshot:(cb,er)=>fs.onSnapshot(fs.collection(fdb,...root,n),s=>cb({docs:s.docs.map(d=>({id:d.id,data:()=>d.data()}))}),er),doc:id=>mk(fs.doc(fdb,...root,n,id))}),doc:p=>{const [c,i]=p.split('/'),r=fs.doc(fdb,...root,c,i);return Object.assign(mk(r),{onSnapshot:(cb,er)=>fs.onSnapshot(r,s=>cb({exists:s.exists(),data:()=>s.data()}),er)})}}})()}
+function setMode(){const m=$('#mode');m.textContent='共同編輯中・你是「'+myName+'」（點此改名）';m.classList.add('link');m.onclick=()=>{const n=(prompt('新的暱稱',myName)||'').trim();if(!n)return;myName=n;try{localStorage.setItem('kf-name',n)}catch(e){}setMode();if(S.votes[uid]){const v=Object.assign({},S.votes[uid],{_name:n});S.votes[uid]=v;names[uid]=n;guard(db.doc('votes/'+uid).set(v));render(1)}}}
+function foot(){const f=$('#foot');f.append(h('button',{class:'btn ghost',onclick:()=>{const a=h('a',{href:URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'})),download:'kumamoto-fukuoka-trip.json'});document.body.append(a);a.click();a.remove()}},'匯出備份（JSON）'),' ',h('label',{class:'btn ghost'},'匯入備份',h('input',{type:'file',accept:'.json',style:'display:none',onchange:async e=>{const fl=e.target.files[0];if(!fl)return;try{Object.assign(S,JSON.parse(await fl.text()));persist();render(1);toast('已匯入備份')}catch(x){toast('檔案格式不正確')}}})))}
+async function init(){
+  render();
+  const cfg=window.TRIP_CONFIG||{};
+  if(cfg.firebase&&cfg.firebase.projectId){try{db=await connectFirebase(cfg)}catch(e){db=null;toast('無法連線到 Firebase，改用個人模式')}}
+  if(db){
+    shared=true;
+    try{uid=localStorage.getItem('kf-uid')||('u'+Math.random().toString(36).slice(2,10));localStorage.setItem('kf-uid',uid);myName=localStorage.getItem('kf-name')||''}catch(e){uid='u'+Math.random().toString(36).slice(2,10)}
+    if(!myName){myName=(prompt('請輸入你的暱稱（朋友會在投票提示中看到）')||'').trim()||('旅伴'+uid.slice(-3));try{localStorage.setItem('kf-name',myName)}catch(e){}}
+    setMode();
+    const err=()=>{toast('同步失敗，請檢查網路或 Firestore 規則')};
+    db.collection('spots').onSnapshot(s=>{S.spots={};s.docs.forEach(d=>S.spots[d.id]=d.data());render()},err);
+    db.collection('votes').onSnapshot(s=>{S.votes={};s.docs.forEach(d=>S.votes[d.id]=d.data());for(const u in S.votes)names[u]=S.votes[u]._name||'';render()},err);
+    db.collection('snacks').onSnapshot(s=>{S.snacks={};s.docs.forEach(d=>S.snacks[d.id]=d.data());render()},err);
+    db.collection('expenses').onSnapshot(s=>{S.exps={};s.docs.forEach(d=>S.exps[d.id]=d.data());render()},err);
+    db.doc('plan/main').onSnapshot(s=>{S.plan=Object.assign({slots:{},titles:{},notes:{},moves:{}},s.exists?s.data():{});render()},err);
+  }else{
+    loadLocal();$('#mode').textContent='個人模式・只存在這個瀏覽器';foot();render();
+  }
+}
+init();
+</script>
+</body>
+</html>

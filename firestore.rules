@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 只開放「已知房間代碼」底下的資料；根目錄無法被列舉
+    match /trips/{room}/{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
